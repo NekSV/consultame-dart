@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Sensus extends StatelessWidget {
-  Sensus({Key? key}) : super(key: key);
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
+class Census extends StatelessWidget {
+  const Census({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

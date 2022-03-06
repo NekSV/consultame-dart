@@ -1,10 +1,11 @@
-import 'package:consultame/sensus.dart';
-import 'package:flutter/material.dart';
+import 'package:consultame/census.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+
 import 'firebase_options.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -103,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Sensus()),
+                      MaterialPageRoute(builder: (context) => Census()),
                     );
                   },
                   child: const Text('Continuar'),
