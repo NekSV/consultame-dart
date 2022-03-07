@@ -45,6 +45,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   Future<void> initSurveyState() async {
     String? id = await getUniqueId();
+    await getDeviceData();
     if (!mounted) return;
 
     setState(() {
@@ -78,13 +79,13 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       },
       steps: <Step>[
         Step(
-          title: const Text('Step 1 title '),
+          title: const Text(''),
           content: Container(
               alignment: Alignment.centerLeft,
               child: const Text('Content for Step 1')),
         ),
         const Step(
-          title: Text('Step 2 title'),
+          title: Text(''),
           content: Text('Content for Step 2'),
         ),
       ],
