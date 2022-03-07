@@ -33,65 +33,53 @@ class MyStatefulWidget extends StatefulWidget {
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _index = 0;
-  String? _deviceId;
-  Survey? _survey;
-
-  @override
-  void initState() {
-    super.initState();
-    initSurveyState();
-  }
-
-  Future<void> initSurveyState() async {
-    try {
-      String? id = await getUniqueId();
-      Survey survey = await getDeviceData();
-      if (!mounted) return;
-      setState(() {
-        _deviceId = id;
-        _survey = survey;
-      });
-    } catch (error) {
-      await registerDevice();
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
-    return Stepper(
-      type: StepperType.horizontal,
-      currentStep: _index,
-      onStepCancel: () {
-        if (_index > 0) {
-          setState(() {
-            _index -= 1;
-          });
+    return FutureBuilder(
+      future: getDeviceData(),
+      builder: (context, AsyncSnapshot<Survey> snapshot) {
+        if (snapshot.hasError) {
+          return Text("Something went wrong");
         }
-      },
-      onStepContinue: () {
-        if (_index <= 0) {
-          setState(() {
-            _index += 1;
-          });
+
+        if (snapshot.hasData && snapshot.data == null) {
+          return Text("Document does not exist");
         }
+
+        if (snapshot.connectionState == ConnectionState.done) {
+          return Text("Full Name: ${snapshot.data!.name}");
+        }
+
+        return Text("loading");
       },
-      onStepTapped: (int index) {
-        setState(() {
-          _index = index;
-        });
-      },
-      steps: <Step>[
-        Step(
-          title: const Text(''),
-          content: Container(
-              alignment: Alignment.centerLeft,
-              child: const Text('Content for Step 1')),
-        ),
-        const Step(
-          title: Text(''),
-          content: Text('Content for Step 2'),
-        ),
-      ],
     );
   }
+// @override
+// Widget build(BuildContext context) {
+//   return Stepper(
+//     type: StepperType.horizontal,
+//     currentStep: _index,
+//     onStepCancel: () {
+//       if (_index > 0) {
+//         setState(() {
+//           _index -= 1;
+//         });
+//       }
+//     },
+//     onStepContinue: () {
+//       if (_index <= 0) {
+//         setState(() {
+//           _index += 1;
+//         });
+//       }
+//     },
+//     onStepTapped: (int index) {
+//       setState(() {
+//         _index = index;
+//       });
+//     },
+//     steps: ,
+//   );
+// }
 }
