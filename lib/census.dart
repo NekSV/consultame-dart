@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:consultame/device.dart';
+import 'package:consultame/survey.dart';
 import 'package:flutter/material.dart';
 
 class Census extends StatelessWidget {
@@ -34,8 +35,7 @@ class MyStatefulWidget extends StatefulWidget {
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _index = 0;
   String? _deviceId;
-  CollectionReference surveys =
-      FirebaseFirestore.instance.collection('surveys');
+  Survey? _survey;
 
   @override
   void initState() {
@@ -44,13 +44,17 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   }
 
   Future<void> initSurveyState() async {
-    String? id = await getUniqueId();
-    await getDeviceData();
-    if (!mounted) return;
-
-    setState(() {
-      _deviceId = id;
-    });
+    try {
+      String? id = await getUniqueId();
+      Survey survey = await getDeviceData();
+      if (!mounted) return;
+      setState(() {
+        _deviceId = id;
+        _survey = survey;
+      });
+    } catch (error) {
+      await registerDevice();
+    }
   }
 
   @override
