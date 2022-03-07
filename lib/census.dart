@@ -1,27 +1,28 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:consultame/device.dart';
 import 'package:flutter/material.dart';
 
 class Census extends StatelessWidget {
   const Census({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          // Here we take the value from the MyHomePage object that was created by
-          // the App.build method, and use it to set our appbar title.
-          title: const Text('Encuesta'),
-        ),
-        body: const Center(
+      appBar: AppBar(
+        // Here we take the value from the MyHomePage object that was created by
+        // the App.build method, and use it to set our appbar title.
+        title: const Text('Encuesta'),
+      ),
+      body: const Center(
           // child: Column(
           //   mainAxisAlignment: MainAxisAlignment.center,
           //   children: const [
           //     Text('First Try to change screen')
           //   ],
-            child: MyStatefulWidget()
-        ),
+          child: MyStatefulWidget()),
     );
   }
 }
-
 
 class MyStatefulWidget extends StatefulWidget {
   const MyStatefulWidget({Key? key}) : super(key: key);
@@ -32,6 +33,24 @@ class MyStatefulWidget extends StatefulWidget {
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _index = 0;
+  String? _deviceId;
+  CollectionReference surveys =
+      FirebaseFirestore.instance.collection('surveys');
+
+  @override
+  void initState() {
+    super.initState();
+    initSurveyState();
+  }
+
+  Future<void> initSurveyState() async {
+    String? id = await getUniqueId();
+    if (!mounted) return;
+
+    setState(() {
+      _deviceId = id;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +78,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       },
       steps: <Step>[
         Step(
-          title: const Text('Step 1 title'),
+          title: const Text('Step 1 title '),
           content: Container(
               alignment: Alignment.centerLeft,
               child: const Text('Content for Step 1')),
@@ -72,4 +91,3 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     );
   }
 }
-

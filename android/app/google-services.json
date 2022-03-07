@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "965942954093",
+    "project_id": "encuesta-tinmarin",
+    "storage_bucket": "encuesta-tinmarin.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:965942954093:android:8c75db2c6595b2f0989764",
+        "android_client_info": {
+          "package_name": "com.nekalv.consultame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "965942954093-voccecigfg68o301lga6o68vas1qmie4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAJ93FQwc4IzsaqKsUP4U2x2ktqFzYEdA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "965942954093-voccecigfg68o301lga6o68vas1qmie4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
