@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:consultame/survey.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:consultame/approved_device.dart';
 
@@ -18,7 +17,7 @@ Future<String?> getUniqueId() async {
 }
 
 /// Get Associated data to device on Firestore
-Future<Survey> getDeviceData() async {
+Future getDeviceData() async {
   String? id = await getUniqueId();
   DocumentSnapshot<ApprovedDevice> device = await devices
       .doc(id)
@@ -27,15 +26,17 @@ Future<Survey> getDeviceData() async {
               ApprovedDevice.fromJson(snapshots.data()!),
           toFirestore: (device, _) => device.toJson())
       .get();
-  DocumentSnapshot<Survey> survey = await device
-      .data()!
-      .survey
-      .withConverter<Survey>(
-          fromFirestore: (snapshots, _) => Survey.fromJson(snapshots.data()!),
-          toFirestore: (survey, _) => survey.toJson())
-      .get();
+  if (device.exists) {
+    DocumentSnapshot<Object?> survey = await device
+        .data()!
+        .survey
+        .get();
+    return survey.data()!;
+  }else{
+    registerDevice();
+  }
 
-  return survey.data()!;
+  return null;
 }
 
 /// Onboard new device on Firestore

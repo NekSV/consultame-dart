@@ -1,11 +1,6 @@
-import 'dart:io';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:consultame/census.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:device_info_plus/device_info_plus.dart';
-import 'package:flutter/services.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -34,7 +29,9 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.red,
+        fontFamily: 'Montserrat',
+        backgroundColor: Colors.white70,
       ),
       home: const MyHomePage(title: 'Bienvenido a Tin Marin'),
     );
@@ -71,12 +68,19 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return Scaffold(
+    return Container(
+      decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: NetworkImage(
+                  "https://storage.googleapis.com/encuesta-tinmarin.appspot.com/splahs-small.png"),
+              fit: BoxFit.cover)),
+      child: Scaffold(
         appBar: AppBar(
           // Here we take the value from the MyHomePage object that was created by
           // the App.build method, and use it to set our appbar title.
           title: Text(widget.title),
         ),
+        backgroundColor: Colors.transparent,
         body: Center(
           // Center is a layout widget. It takes a single child and positions it
           // in the middle of the parent.
@@ -95,26 +99,22 @@ class _MyHomePageState extends State<MyHomePage> {
             // center the children vertically; the main axis here is the vertical
             // axis because Columns are vertical (the cross axis would be
             // horizontal).
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(
-                    'Hola 😃, nos encantaría servirte mejor, \n ¿podrías ayudarnos con las siguientes preguntas?',
-                    style: Theme.of(context).textTheme.headlineLarge,
-                    textAlign: TextAlign.center,
-                  )),
               ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Census()));
-                  },
-                  child: const Text('Continuar'),
-                  style: nextButton)
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const Census()));
+                },
+                child: const Text('Continuar'),
+                style: nextButton,
+              ),
+              const Text(""),
+              const Text("")
             ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

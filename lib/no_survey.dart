@@ -12,9 +12,7 @@ class NoSurvey extends StatelessWidget {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Text('Actualizar configuración del dispositivo')
-          ],
+          children: const [Text('Actualizar configuración del dispositivo')],
         ),
       ),
     );
