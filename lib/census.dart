@@ -20,74 +20,76 @@ class CensusStatefulWidget extends StatefulWidget {
 }
 
 class _CensusStatefulWidgetState extends State<CensusStatefulWidget> {
+  final String _background =
+      "https://storage.googleapis.com/encuesta-tinmarin.appspot.com/wallpaper_4.jpg";
+  MaterialColor primaryMaterialColor = const MaterialColor(
+    4294922834,
+    <int, Color>{
+      50: Color.fromRGBO(
+        255,
+        82,
+        82,
+        .1,
+      ),
+      100: Color.fromRGBO(
+        255,
+        82,
+        82,
+        .2,
+      ),
+      200: Color.fromRGBO(
+        255,
+        82,
+        82,
+        .3,
+      ),
+      300: Color.fromRGBO(
+        255,
+        82,
+        82,
+        .4,
+      ),
+      400: Color.fromRGBO(
+        255,
+        82,
+        82,
+        .5,
+      ),
+      500: Color.fromRGBO(
+        255,
+        82,
+        82,
+        .6,
+      ),
+      600: Color.fromRGBO(
+        255,
+        82,
+        82,
+        .7,
+      ),
+      700: Color.fromRGBO(
+        255,
+        82,
+        82,
+        .8,
+      ),
+      800: Color.fromRGBO(
+        255,
+        82,
+        82,
+        .9,
+      ),
+      900: Color.fromRGBO(
+        255,
+        82,
+        82,
+        1,
+      ),
+    },
+  );
+
   @override
   Widget build(BuildContext context) {
-    MaterialColor primaryMaterialColor = const MaterialColor(
-      4294922834,
-      <int, Color>{
-        50: Color.fromRGBO(
-          255,
-          82,
-          82,
-          .1,
-        ),
-        100: Color.fromRGBO(
-          255,
-          82,
-          82,
-          .2,
-        ),
-        200: Color.fromRGBO(
-          255,
-          82,
-          82,
-          .3,
-        ),
-        300: Color.fromRGBO(
-          255,
-          82,
-          82,
-          .4,
-        ),
-        400: Color.fromRGBO(
-          255,
-          82,
-          82,
-          .5,
-        ),
-        500: Color.fromRGBO(
-          255,
-          82,
-          82,
-          .6,
-        ),
-        600: Color.fromRGBO(
-          255,
-          82,
-          82,
-          .7,
-        ),
-        700: Color.fromRGBO(
-          255,
-          82,
-          82,
-          .8,
-        ),
-        800: Color.fromRGBO(
-          255,
-          82,
-          82,
-          .9,
-        ),
-        900: Color.fromRGBO(
-          255,
-          82,
-          82,
-          1,
-        ),
-      },
-    );
-
     ThemeData myTheme = ThemeData(
       fontFamily: "Montserrat",
       primaryColor: const Color(0xffff5252),
@@ -100,7 +102,7 @@ class _CensusStatefulWidgetState extends State<CensusStatefulWidget> {
       ),
       colorScheme: ColorScheme.fromSwatch(primarySwatch: primaryMaterialColor)
           .copyWith(secondary: const Color(0xffff5252)),
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.transparent,
       cupertinoOverrideTheme: const CupertinoThemeData(
         primaryColor: Color(0xffff5252),
       ),
@@ -140,6 +142,24 @@ class _CensusStatefulWidgetState extends State<CensusStatefulWidget> {
           ),
         ),
       ),
+      textTheme: const TextTheme(
+        headline2: TextStyle(
+          fontSize: 28.0,
+          color: Colors.black,
+        ),
+        headline5: TextStyle(
+          fontSize: 24.0,
+          color: Colors.black,
+        ),
+        bodyText2: TextStyle(
+          fontSize: 18.0,
+          color: Colors.black,
+        ),
+        subtitle1: TextStyle(
+          fontSize: 18.0,
+          color: Colors.black,
+        ),
+      ),
     );
     return FutureBuilder<Task>(
       future: getJsonTask(),
@@ -148,20 +168,26 @@ class _CensusStatefulWidgetState extends State<CensusStatefulWidget> {
             snapshot.hasData &&
             snapshot.data != null) {
           final task = snapshot.data!;
-          return SurveyKit(
-            onResult: (SurveyResult result) {
-              print(result.results);
-              Navigator.pop(context);
-            },
-            task: task,
-            showProgress: true,
-            localizations: const {
-              'cancel': 'Cancelar',
-              'next': 'Siguiente',
-            },
-            themeData: myTheme,
-            surveyProgressbarConfiguration: SurveyProgressConfiguration(
-              backgroundColor: Colors.white,
+          return Container(
+            padding: const EdgeInsets.only(left: 80, right: 80, bottom: 150),
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: NetworkImage(_background), fit: BoxFit.cover)),
+            child: SurveyKit(
+              onResult: (SurveyResult result) {
+                print(result.results);
+                Navigator.pop(context);
+              },
+              task: task,
+              showProgress: true,
+              localizations: const {
+                'cancel': 'Cancelar',
+                'next': 'Siguiente',
+              },
+              themeData: myTheme,
+              surveyProgressbarConfiguration: SurveyProgressConfiguration(
+                backgroundColor: Colors.white,
+              ),
             ),
           );
         }
