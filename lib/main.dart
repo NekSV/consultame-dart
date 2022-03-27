@@ -106,7 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => const Census()));
                 },
-                child: const Text('Continuar'),
+                child: const Text('Continuar \1f680'),
                 style: nextButton,
               ),
               const Text(""),

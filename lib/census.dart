@@ -21,68 +21,68 @@ class CensusStatefulWidget extends StatefulWidget {
 
 class _CensusStatefulWidgetState extends State<CensusStatefulWidget> {
   final String _background =
-      "https://storage.googleapis.com/encuesta-tinmarin.appspot.com/wallpaper_4.jpg";
+      "https://storage.googleapis.com/encuesta-tinmarin.appspot.com/FONDO-PRUEBA.jpg";
   MaterialColor primaryMaterialColor = const MaterialColor(
-    4294922834,
+    4279074754,
     <int, Color>{
       50: Color.fromRGBO(
-        255,
-        82,
-        82,
+        13,
+        127,
+        194,
         .1,
       ),
       100: Color.fromRGBO(
-        255,
-        82,
-        82,
+        13,
+        127,
+        194,
         .2,
       ),
       200: Color.fromRGBO(
-        255,
-        82,
-        82,
+        13,
+        127,
+        194,
         .3,
       ),
       300: Color.fromRGBO(
-        255,
-        82,
-        82,
+        13,
+        127,
+        194,
         .4,
       ),
       400: Color.fromRGBO(
-        255,
-        82,
-        82,
+        13,
+        127,
+        194,
         .5,
       ),
       500: Color.fromRGBO(
-        255,
-        82,
-        82,
+        13,
+        127,
+        194,
         .6,
       ),
       600: Color.fromRGBO(
-        255,
-        82,
-        82,
+        13,
+        127,
+        194,
         .7,
       ),
       700: Color.fromRGBO(
-        255,
-        82,
-        82,
+        13,
+        127,
+        194,
         .8,
       ),
       800: Color.fromRGBO(
-        255,
-        82,
-        82,
+        13,
+        127,
+        194,
         .9,
       ),
       900: Color.fromRGBO(
-        255,
-        82,
-        82,
+        13,
+        127,
+        194,
         1,
       ),
     },
@@ -92,19 +92,19 @@ class _CensusStatefulWidgetState extends State<CensusStatefulWidget> {
   Widget build(BuildContext context) {
     ThemeData myTheme = ThemeData(
       fontFamily: "Montserrat",
-      primaryColor: const Color(0xffff5252),
+      primaryColor: const Color(0xff0d7fc2),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(
-            const Color(0xffff5252),
+            const Color(0xff0d7fc2),
           ),
         ),
       ),
       colorScheme: ColorScheme.fromSwatch(primarySwatch: primaryMaterialColor)
-          .copyWith(secondary: const Color(0xffff5252)),
-      backgroundColor: Colors.transparent,
+          .copyWith(secondary: const Color(0xff0d7fc4)),
+      backgroundColor: Colors.white.withOpacity(0.5),
       cupertinoOverrideTheme: const CupertinoThemeData(
-        primaryColor: Color(0xffff5252),
+        primaryColor: Color(0xff0d7fc4),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: ButtonStyle(
@@ -119,7 +119,7 @@ class _CensusStatefulWidgetState extends State<CensusStatefulWidget> {
                 );
               }
               return const BorderSide(
-                color: Color(0xffff5252),
+                color: Color(0xff0d7fc8),
               );
             },
           ),
@@ -144,8 +144,9 @@ class _CensusStatefulWidgetState extends State<CensusStatefulWidget> {
       ),
       textTheme: const TextTheme(
         headline2: TextStyle(
-          fontSize: 28.0,
+          fontSize: 30.0,
           color: Colors.black,
+          fontWeight: FontWeight.bold,
         ),
         headline5: TextStyle(
           fontSize: 24.0,
@@ -198,9 +199,7 @@ class _CensusStatefulWidgetState extends State<CensusStatefulWidget> {
 
   Future<Task> getJsonTask() async {
     final taskJson = await getDeviceData();
-    print(taskJson);
     final taskMap = taskJson;
-
     return Task.fromJson(taskMap);
   }
 }
