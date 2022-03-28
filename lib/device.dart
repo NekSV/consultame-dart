@@ -3,7 +3,9 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:consultame/approved_device.dart';
 
 final CollectionReference devices =
-    FirebaseFirestore.instance.collection('devices');
+FirebaseFirestore.instance.collection('devices');
+final CollectionReference results =
+FirebaseFirestore.instance.collection('results');
 
 /// Get All Device Info
 Future<AndroidDeviceInfo> getDeviceInfo() async {
@@ -22,17 +24,14 @@ Future getDeviceData() async {
   DocumentSnapshot<ApprovedDevice> device = await devices
       .doc(id)
       .withConverter<ApprovedDevice>(
-          fromFirestore: (snapshots, _) =>
-              ApprovedDevice.fromJson(snapshots.data()!),
-          toFirestore: (device, _) => device.toJson())
+      fromFirestore: (snapshots, _) =>
+          ApprovedDevice.fromJson(snapshots.data()!),
+      toFirestore: (device, _) => device.toJson())
       .get();
   if (device.exists) {
-    DocumentSnapshot<Object?> survey = await device
-        .data()!
-        .survey
-        .get();
+    DocumentSnapshot<Object?> survey = await device.data()!.survey.get();
     return survey.data()!;
-  }else{
+  } else {
     registerDevice();
   }
 
@@ -48,5 +47,12 @@ Future<void> registerDevice() async {
     'device': info.device,
     'model': info.model,
     'survey': null,
+  });
+}
+
+void registerSurvey(id, values) {
+  results.add({
+    'id': id,
+    'answers': values,
   });
 }

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:consultame/device.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:survey_kit/survey_kit.dart';
@@ -176,7 +178,7 @@ class _CensusStatefulWidgetState extends State<CensusStatefulWidget> {
                     image: NetworkImage(_background), fit: BoxFit.cover)),
             child: SurveyKit(
               onResult: (SurveyResult result) {
-                print(result.results);
+                storeSurvey(result);
                 Navigator.pop(context);
               },
               task: task,
@@ -201,5 +203,18 @@ class _CensusStatefulWidgetState extends State<CensusStatefulWidget> {
     final taskJson = await getDeviceData();
     final taskMap = taskJson;
     return Task.fromJson(taskMap);
+  }
+
+  void storeSurvey(SurveyResult result) {
+    final results = result.results;
+    final surveyResult = <String, String?>{};
+    for (StepResult step in results) {
+      if (step.id != null &&
+          !['instruction', 'completion']
+              .contains(step.results[0].valueIdentifier)) {
+        surveyResult[step.id!.id] = step.results[0].valueIdentifier;
+      }
+    }
+    registerSurvey(result.id!.id, surveyResult);
   }
 }
