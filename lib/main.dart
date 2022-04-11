@@ -71,8 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Container(
       decoration: const BoxDecoration(
           image: DecorationImage(
-              image: NetworkImage(
-                  "https://storage.googleapis.com/encuesta-tinmarin.appspot.com/splahs-small.png"),
+              image: AssetImage('assets/splash/main.jpg'),
               fit: BoxFit.cover)),
       child: Scaffold(
         appBar: AppBar(
@@ -106,11 +105,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => const Census()));
                 },
-                child: const Text('Continuar \1f680'),
+                child: const Text('Continuar'),
                 style: nextButton,
               ),
-              const Text(""),
-              const Text("")
+              const Text("", style: TextStyle(height: 20)),
             ],
           ),
         ),
