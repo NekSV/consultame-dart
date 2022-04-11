@@ -13,19 +13,19 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-  static const Map<int, Color> color =
-  {
-    50:Color.fromRGBO(46, 124, 191, .1),
-    100:Color.fromRGBO(46, 124, 191, .2),
-    200:Color.fromRGBO(46, 124, 191, .3),
-    300:Color.fromRGBO(46, 124, 191, .4),
-    400:Color.fromRGBO(46, 124, 191, .5),
-    500:Color.fromRGBO(46, 124, 191, .6),
-    600:Color.fromRGBO(46, 124, 191, .7),
-    700:Color.fromRGBO(46, 124, 191, .8),
-    800:Color.fromRGBO(46, 124, 191, .9),
-    900:Color.fromRGBO(46, 124, 191, 1),
+  static const Map<int, Color> color = {
+    50: Color.fromRGBO(46, 124, 191, .1),
+    100: Color.fromRGBO(46, 124, 191, .2),
+    200: Color.fromRGBO(46, 124, 191, .3),
+    300: Color.fromRGBO(46, 124, 191, .4),
+    400: Color.fromRGBO(46, 124, 191, .5),
+    500: Color.fromRGBO(46, 124, 191, .6),
+    600: Color.fromRGBO(46, 124, 191, .7),
+    700: Color.fromRGBO(46, 124, 191, .8),
+    800: Color.fromRGBO(46, 124, 191, .9),
+    900: Color.fromRGBO(46, 124, 191, 1),
   };
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -70,8 +70,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final ButtonStyle nextButton =
-      ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 40));
+  final ButtonStyle nextButton = ElevatedButton.styleFrom(
+    textStyle: const TextStyle(fontSize: 50),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -84,8 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Container(
       decoration: const BoxDecoration(
           image: DecorationImage(
-              image: AssetImage('assets/splash/main.jpg'),
-              fit: BoxFit.cover)),
+              image: AssetImage('assets/splash/main.jpg'), fit: BoxFit.cover)),
       child: Scaffold(
         appBar: AppBar(
           // Here we take the value from the MyHomePage object that was created by
@@ -113,15 +113,20 @@ class _MyHomePageState extends State<MyHomePage> {
             // horizontal).
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const Census()));
-                },
-                child: const Text('Continuar'),
-                style: nextButton,
+              ConstrainedBox(
+                constraints: const BoxConstraints.tightFor(width: 200, height: 70),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Census()));
+                  },
+                  child: const Text('Continuar'),
+                  style: nextButton,
+                ),
               ),
-              const Text("", style: TextStyle(height: 20)),
+              const Text("", style: TextStyle(height: 18)),
             ],
           ),
         ),
