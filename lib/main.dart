@@ -71,7 +71,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final ButtonStyle nextButton = ElevatedButton.styleFrom(
-    textStyle: const TextStyle(fontSize: 50),
+    textStyle: const TextStyle(fontSize: 20),
   );
 
   @override
