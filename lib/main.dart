@@ -13,12 +13,24 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
+  static const Map<int, Color> color =
+  {
+    50:Color.fromRGBO(46, 124, 191, .1),
+    100:Color.fromRGBO(46, 124, 191, .2),
+    200:Color.fromRGBO(46, 124, 191, .3),
+    300:Color.fromRGBO(46, 124, 191, .4),
+    400:Color.fromRGBO(46, 124, 191, .5),
+    500:Color.fromRGBO(46, 124, 191, .6),
+    600:Color.fromRGBO(46, 124, 191, .7),
+    700:Color.fromRGBO(46, 124, 191, .8),
+    800:Color.fromRGBO(46, 124, 191, .9),
+    900:Color.fromRGBO(46, 124, 191, 1),
+  };
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'TinMarin Survey',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -29,7 +41,8 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.red,
+        primarySwatch: const MaterialColor(0xff2e7cbf, color),
+        bottomAppBarColor: const MaterialColor(0xff2e7cbf, color),
         fontFamily: 'Montserrat',
         backgroundColor: Colors.white70,
       ),
@@ -58,7 +71,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final ButtonStyle nextButton =
-      ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 30));
+      ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 40));
 
   @override
   Widget build(BuildContext context) {
