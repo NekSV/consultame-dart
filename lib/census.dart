@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:consultame/device.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:survey_kit/survey_kit.dart';
 import 'package:flutter/material.dart';
 
@@ -22,8 +21,28 @@ class CensusStatefulWidget extends StatefulWidget {
 }
 
 class _CensusStatefulWidgetState extends State<CensusStatefulWidget> {
-  final String _background =
+  String _background =
       "https://storage.googleapis.com/encuesta-tinmarin.appspot.com/FONDO-PRUEBA.jpg";
+
+  Future<Task> getJsonTask() async {
+    final taskJson = await getDeviceData();
+    final taskMap = taskJson;
+    _background = taskJson['bg'].toString();
+    return Task.fromJson(taskMap);
+  }
+
+  void storeSurvey(SurveyResult result) {
+    final results = result.results;
+    final surveyResult = <String, String?>{};
+    for (StepResult step in results) {
+      if (step.id != null &&
+          !['instruction', 'completion']
+              .contains(step.results[0].valueIdentifier)) {
+        surveyResult[step.id!.id] = step.results[0].valueIdentifier;
+      }
+    }
+    registerSurvey(result.id!.id, surveyResult);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +64,7 @@ class _CensusStatefulWidgetState extends State<CensusStatefulWidget> {
       fontFamily: "Montserrat",
       colorScheme: ColorScheme.fromSwatch(
           primarySwatch: const MaterialColor(0xff2e7cbf, color)),
-      backgroundColor: Colors.white.withOpacity(0.1),
+      backgroundColor: Colors.white.withOpacity(0.2),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: ButtonStyle(
           minimumSize: MaterialStateProperty.all(
@@ -70,7 +89,7 @@ class _CensusStatefulWidgetState extends State<CensusStatefulWidget> {
             (Set<MaterialState> state) {
               if (state.contains(MaterialState.disabled)) {
                 return Theme.of(context).textTheme.button?.copyWith(
-                      color: Colors.grey.shade100,
+                      color: Colors.black,
                     );
               }
               return Theme.of(context).textTheme.button?.copyWith(
@@ -134,24 +153,5 @@ class _CensusStatefulWidgetState extends State<CensusStatefulWidget> {
         return const CircularProgressIndicator.adaptive();
       },
     );
-  }
-
-  Future<Task> getJsonTask() async {
-    final taskJson = await getDeviceData();
-    final taskMap = taskJson;
-    return Task.fromJson(taskMap);
-  }
-
-  void storeSurvey(SurveyResult result) {
-    final results = result.results;
-    final surveyResult = <String, String?>{};
-    for (StepResult step in results) {
-      if (step.id != null &&
-          !['instruction', 'completion']
-              .contains(step.results[0].valueIdentifier)) {
-        surveyResult[step.id!.id] = step.results[0].valueIdentifier;
-      }
-    }
-    registerSurvey(result.id!.id, surveyResult);
   }
 }
